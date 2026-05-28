@@ -375,6 +375,13 @@ img {
   color: #BFBFBF;
 }
 
+/* ICP 备案号占位（备案完成后去掉 .icp-placeholder class 并填入真号即可） */
+.icp-placeholder {
+  color: #595959;
+  font-style: italic;
+  opacity: 0.7;
+}
+
 /* ===== Document Page (privacy / terms) ===== */
 .doc-page {
   max-width: 820px;

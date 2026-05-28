@@ -224,8 +224,9 @@
 |------|-----|
 | **公司全称** | 北京跃动无限科技有限公司 |
 | **English Name** | Beijing Yuedong Wuxian Technology Co., Ltd. |
-| **联系邮箱** | 1348270542@qq.com |
-| **应用官网** | （待定，备案后启用）|
+| **联系邮箱** | 1348270542@qq.com（建议后续切换为 hello@migofitai.com 企业邮箱）|
+| **应用官网** | [https://migofitai.com](https://migofitai.com)（备案完成后正式启用）|
+| **API 域名** | `api.migofitai.com`（生产环境后端入口）|
 | **版权年份** | © 2025-2026 |
 
 ---
