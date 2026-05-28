@@ -1,6 +1,8 @@
-/* ===== FitCoach Official Website Styles ===== */
-/* Design tokens */
+/* ===== MIGO FIT Official Website Styles ===== */
+/* Brand: MIGO FIT — Your AI Workout MIGO */
+/* Design tokens — 与品牌 VI 文档 BRAND.md 对齐 */
 :root {
+  /* 品牌主渐变: #FF4D4F → #FFA940 (温暖红橙) */
   --color-primary: #FF4D4F;
   --color-primary-dark: #D9363E;
   --color-accent: #FFA940;
@@ -85,17 +87,13 @@ img {
   color: var(--color-text);
 }
 
-.nav-brand .logo-dot {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: var(--gradient-hero);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 800;
+.nav-brand .logo-svg {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  vertical-align: middle;
+  /* 微弱阴影，让 logo 在浅色 header 上更立体 */
+  filter: drop-shadow(0 2px 4px rgba(255, 77, 79, 0.20));
 }
 
 .nav-links {

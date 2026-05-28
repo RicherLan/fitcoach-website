@@ -1,21 +1,25 @@
-# FitCoach Official Website
+# MIGO FIT Official Website
 
-FitCoach 官方网站，部署在 GitHub Pages。
+MIGO FIT 官方网站，部署在 GitHub Pages。
 
 - **公司主体**：北京跃动无限科技有限公司
-- **产品**：FitCoach — AI 健身教练
+- **产品**：MIGO FIT — AI 健身教练
 - **联系邮箱**：1348270542@qq.com
 
 ## 目录结构
 
 ```
 fitcoach-website/
-├── index.html        首页（产品介绍 + 功能特性 + 关于我们）
-├── privacy.html      隐私政策（覆盖摄像头/账号/支付/第三方 SDK）
-├── terms.html        用户服务协议（含会员/退款/免责）
-├── contact.html      联系我们（用户支持/商务/媒体/隐私）
+├── index.html              首页（产品介绍 + 功能特性 + 关于我们）
+├── privacy.html            隐私政策（覆盖摄像头/账号/支付/第三方 SDK）
+├── terms.html              用户服务协议（含会员/退款/免责）
+├── contact.html            联系我们（用户支持/商务/媒体/隐私）
 ├── assets/
-│   └── style.css     全站样式
+│   ├── style.css           全站样式
+│   ├── logo.svg            主 Logo（圆角矩形 + 字母 M，可作 App Icon）
+│   ├── logo-wordmark.svg   完整水平 Logo（Logo + "MIGO FIT" 文字）
+│   └── favicon.svg         浏览器标签页图标
+├── BRAND.md                品牌 VI 规范（色彩 / Logo / 字体 / 文案）
 └── README.md
 ```
 
@@ -37,7 +41,7 @@ fitcoach-website/
 cd /Users/richerlan/code/lanprojects/fitcoach-website
 git init
 git add .
-git commit -m "init: FitCoach 官网首发 v1"
+git commit -m "init: MIGO FIT 官网首发 v1"
 git branch -M main
 git remote add origin git@github.com:RicherLan/fitcoach-website.git
 git push -u origin main

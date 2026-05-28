@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  MIGO FIT — 完整水平 Logo (Wordmark)
+  组成: Logo Mark + 文字 "MIGO FIT"
+  适用: 网站 Header / 邮件签名 / 文档头 / PPT 封面
+  尺寸: 360x100 viewBox
+-->
+<svg width="360" height="100" viewBox="0 0 360 100"
+     xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-label="MIGO FIT">
+  <defs>
+    <linearGradient id="wmGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF4D4F"/>
+      <stop offset="100%" stop-color="#FFA940"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Logo Mark (左) -->
+  <rect x="0" y="0" width="100" height="100" rx="22" ry="22" fill="url(#wmGradient)"/>
+  <path d="M 25 73 L 25 27 L 50 52 L 75 27 L 75 73"
+        fill="none" stroke="#FFFFFF" stroke-width="9"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 文字 MIGO FIT (右) -->
+  <text x="120" y="68"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif"
+        font-size="46" font-weight="800" letter-spacing="-1"
+        fill="#1F1F1F">MIGO<tspan dx="8" fill="url(#wmGradient)">FIT</tspan></text>
+</svg>
