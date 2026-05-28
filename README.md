@@ -1,0 +1,78 @@
+# FitCoach Official Website
+
+FitCoach 官方网站，部署在 GitHub Pages。
+
+- **公司主体**：北京跃动无限科技有限公司
+- **产品**：FitCoach — AI 健身教练
+- **联系邮箱**：1348270542@qq.com
+
+## 目录结构
+
+```
+fitcoach-website/
+├── index.html        首页（产品介绍 + 功能特性 + 关于我们）
+├── privacy.html      隐私政策（覆盖摄像头/账号/支付/第三方 SDK）
+├── terms.html        用户服务协议（含会员/退款/免责）
+├── contact.html      联系我们（用户支持/商务/媒体/隐私）
+├── assets/
+│   └── style.css     全站样式
+└── README.md
+```
+
+## 部署到 GitHub Pages（一次性，约 3 分钟）
+
+### 步骤 1：在 GitHub 创建仓库
+
+打开 https://github.com/new ，填写：
+
+- **Repository name**：`fitcoach-website`
+- **Visibility**：**Public**（GitHub Pages 免费版只支持 public 仓库）
+- 其他保持默认，点 **Create repository**
+
+### 步骤 2：把本地代码推上去
+
+在本目录执行：
+
+```bash
+cd /Users/richerlan/code/lanprojects/fitcoach-website
+git init
+git add .
+git commit -m "init: FitCoach 官网首发 v1"
+git branch -M main
+git remote add origin git@github.com:RicherLan/fitcoach-website.git
+git push -u origin main
+```
+
+> 如果你用 HTTPS 推送，把 remote 改成：
+> `git remote add origin https://github.com/RicherLan/fitcoach-website.git`
+
+### 步骤 3：开启 GitHub Pages
+
+1. 打开 https://github.com/RicherLan/fitcoach-website/settings/pages
+2. **Source** 选择：`Deploy from a branch`
+3. **Branch** 选择：`main` + `/ (root)`
+4. 点 **Save**
+5. 等待 1-3 分钟，页面上方会出现绿色提示：
+   > Your site is live at `https://richerlan.github.io/fitcoach-website/`
+
+把这个 URL 填到微信开放平台的"应用官网"字段即可。
+
+## 后续维护
+
+- **改内容**：直接编辑对应 html，`git commit` + `git push` 后约 1 分钟自动重新发布
+- **加页面**：在根目录新增 html 文件，记得在导航栏（每个文件的 `nav-links` 部分）和 footer 加入口
+- **改样式**：编辑 `assets/style.css`，使用 CSS 变量集中调色（顶部 `:root` 块）
+
+## 微信审核常见检查点
+
+本站已经覆盖以下微信开放平台 / Apple App Store / Google Play 通用审核要求：
+
+- ✅ 产品名称、产品介绍、功能描述（[index.html](index.html)）
+- ✅ 隐私政策（[privacy.html](privacy.html)，含设备权限调用清单、第三方 SDK 清单、用户权利、未成年人保护）
+- ✅ 用户服务协议（[terms.html](terms.html)，含会员/订阅/退款/免责）
+- ✅ 公司全称 + 联系邮箱（所有页面 footer + [contact.html](contact.html)）
+- ⚠️ ICP 备案号（如未备案，本站暂未展示；上线运营前需补在 footer）
+
+## License
+
+© 2025 北京跃动无限科技有限公司 版权所有。
