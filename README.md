@@ -2,7 +2,7 @@
 
 MIGO FIT 官方网站，部署在 GitHub Pages，绑定自定义域名 **migofitai.com**。
 
-- **公司主体**：北京跃动无限科技有限公司
+- **运营主体**：MIGO FIT（ICP 备案进行中，主体待定）
 - **产品**：MIGO FIT — AI 健身好朋友
 - **官方网站**：https://migofitai.com
 - **API 域名**：api.migofitai.com（生产环境后端入口）
@@ -106,9 +106,27 @@ GitHub Pages 与自建 Nginx 不能同时绑定同一域名，迁移时切换 DN
 - ✅ 产品名称、产品介绍、功能描述（[index.html](index.html)）
 - ✅ 隐私政策（[privacy.html](privacy.html)，含设备权限调用清单、第三方 SDK 清单、用户权利、未成年人保护）
 - ✅ 用户服务协议（[terms.html](terms.html)，含会员/订阅/退款/免责）
-- ✅ 公司全称 + 联系邮箱（所有页面 footer + [contact.html](contact.html)）
-- ⚠️ ICP 备案号（已购腾讯云服务器，备案通过后把 footer `.icp-placeholder` 占位换成真实备案号）
+- ✅ 产品名称 + 联系邮箱（所有页面 footer + [contact.html](contact.html)）
+- ⚠️ ICP 备案号 + 公安备案号（已购腾讯云服务器，备案进行中，详见下节）
+
+## 备案号下发后操作清单
+
+ICP / 公安备案审批通过后，按下面 4 处替换占位文案即可：
+
+1. **[index.html](index.html)** —— `footer-bottom` 块（约第 155 行）
+2. **[privacy.html](privacy.html)** —— `footer-bottom` 块（约第 178 行）
+3. **[terms.html](terms.html)** —— `footer-bottom` 块（约第 137 行）
+4. **[contact.html](contact.html)** —— `footer-bottom` 块（约第 101 行）
+
+每处都已加 HTML 注释指明替换方式：
+- 把 `<span class="icp-placeholder">粤 ICP 备 XXXXXXXX 号（备案中）</span>`
+  换成 `<a href="https://beian.miit.gov.cn" target="_blank" rel="noopener">粤ICP备2026XXXXXX号</a>`
+- 把 `<span class="icp-placeholder">粤公网安备 XXXXXXXXXXXX 号（备案中）</span>`
+  换成 `<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44XXXXXXXX" target="_blank" rel="noopener">粤公网安备 44XXXXXXXX 号</a>`
+
+> 配套的 RN 客户端备案号配置在 `FitCoachRN/src/common/config/icpConfig.ts` 单一来源，
+> 备案通过后同样改一处即可全局生效。
 
 ## License
 
-© 2025 北京跃动无限科技有限公司 版权所有。
+© 2026 MIGO FIT
