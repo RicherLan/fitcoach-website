@@ -2,7 +2,7 @@
 
 MIGO FIT 官方网站，部署在 GitHub Pages，绑定自定义域名 **migofitai.com**。
 
-- **运营主体**：MIGO FIT（ICP 备案进行中，主体待定）
+- **运营主体**：北京跃动无限科技有限公司
 - **产品**：MIGO FIT — AI 健身好朋友
 - **官方网站**：https://migofitai.com
 - **API 域名**：api.migofitai.com（生产环境后端入口）
@@ -119,14 +119,14 @@ ICP / 公安备案审批通过后，按下面 4 处替换占位文案即可：
 4. **[contact.html](contact.html)** —— `footer-bottom` 块（约第 101 行）
 
 每处都已加 HTML 注释指明替换方式：
-- 把 `<span class="icp-placeholder">粤 ICP 备 XXXXXXXX 号（备案中）</span>`
-  换成 `<a href="https://beian.miit.gov.cn" target="_blank" rel="noopener">粤ICP备2026XXXXXX号</a>`
-- 把 `<span class="icp-placeholder">粤公网安备 XXXXXXXXXXXX 号（备案中）</span>`
-  换成 `<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44XXXXXXXX" target="_blank" rel="noopener">粤公网安备 44XXXXXXXX 号</a>`
+- 把 `<span class="icp-placeholder">京 ICP 备 XXXXXXXX 号（备案中）</span>`
+  换成 `<a href="https://beian.miit.gov.cn" target="_blank" rel="noopener">京ICP备2026XXXXXX号</a>`
+- 把 `<span class="icp-placeholder">京公网安备 XXXXXXXXXXXX 号（备案中）</span>`
+  换成 `<a href="https://beian.mps.gov.cn/#/query/webSearch?code=11XXXXXXXX" target="_blank" rel="noopener">京公网安备 11XXXXXXXX 号</a>`
 
 > 配套的 RN 客户端备案号配置在 `FitCoachRN/src/common/config/icpConfig.ts` 单一来源，
 > 备案通过后同样改一处即可全局生效。
 
 ## License
 
-© 2026 MIGO FIT
+© 2026 北京跃动无限科技有限公司 版权所有。
