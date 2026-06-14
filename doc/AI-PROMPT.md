@@ -11,7 +11,7 @@
 
 | 仓 | 路径 | 角色 |
 |---|---|---|
-| **fitcoach-website**（本仓） | `~/code/lanprojects/fitcoach-website` | **官网静态站**（纯 HTML/CSS，GitHub Pages 部署，绑定 `migofitai.com`） |
+| **fitcoach-website**（本仓） | `~/code/lanprojects/fitcoach-website` | **官网静态站**（纯 HTML/CSS，部署在腾讯云 CVM nginx 容器，未来绑域名 `migofitai.com`） |
 | FitCoachRN | `~/code/lanprojects/FitCoachRN` | RN 客户端（Android 已实装） |
 | FitCoachServer | `~/code/lanprojects/FitCoachServer` | Spring Boot 后端 |
 | FitCoachAdminManager | `~/code/lanprojects/FitCoachAdminManager` | 管理后台 |
@@ -23,7 +23,8 @@
 ## 1. ⚠️ 铁律：改完即 commit + push（最重要！）
 
 > **这一条违反一次都不行**。我（用户）以前的 AI 协作流程是「每完成一个主题就立刻 commit + push」。
-> **官网更特殊**：GitHub Pages 是 `push 即发布`，commit 后 1 分钟内 `https://migofitai.com` 就生效，**意味着每一次 commit 都是对外的线上变更**，更不能积压、更不能含错字。
+>
+> **官网部署流程**：本地 `git push origin main`（github 仓库做代码托管）→ 到生产服务器 `bash shell/deploy-website.sh`（详见 [`FitCoachServer/shell/deploy-website.sh`](../../FitCoachServer/shell/deploy-website.sh)）→ 服务器 `git pull` 到 `/data/fitcoach/website` → docker nginx 容器只读挂载 + reload。**push 完不会自动上线**，需要去服务器跑一次部署脚本（或我手动跑）。
 
 ### 强制流程
 
@@ -33,7 +34,7 @@
    - 法律相关页面（`privacy.html` / `terms.html` / `legal/*`）改完**双开本地浏览器看下渲染**
    - 链接（特别是跨页 `nav-links`、`footer` 和外部备案链接）有没有断
 3. 提交后**必须** `git push origin main`，不要只 commit 不 push。
-4. 提交完用一句话告诉我：**「已 commit + push，hash: abc1234，1 分钟后 migofitai.com 生效」**。
+4. 提交完用一句话告诉我：**「已 commit + push，hash: abc1234，请在服务器执行 `cd /opt/fitcoach/FitCoachServer && bash shell/deploy-website.sh` 发布」**。
 
 ### Commit message 规范（参考本仓真实历史）
 
@@ -150,17 +151,52 @@ feat: 品牌全面重塑 FitCoach → MIGO FIT
 | 改 Logo | website `assets/logo*.svg` + RN `android/.../res/mipmap-*` + admin `public/logo.svg` → **四仓 commit + push** |
 | 改公司信息（名称 / 邮箱 / 域名） | website 所有 footer + RN `Settings`/`About` + admin `About`/`Login` + BRAND.md → **四仓 commit + push** |
 | 备案号下发 | RN `icpConfig.ts`（**单一来源**）+ website 4 处 footer + admin（如有） → **多仓 commit + push** |
-| 域名变更（极少发生） | website `CNAME` + RN `httpClient baseUrl` + admin `vite.config.ts` proxy + server `application-prod.yml` → **四仓 commit + push** |
+| 域名变更（极少发生） | RN `httpClient baseUrl` + admin `vite.config.ts` proxy + server `application-prod.yml` + server nginx `server_name` + website 所有外链文案 → **四仓 commit + push** |
 
 ---
 
-## 8. GitHub Pages 部署特性（必须懂）
+## 8. 部署特性（必须懂）
 
-- **推送即上线**：`git push origin main` 后约 1 分钟，`https://migofitai.com` 自动更新。**无回滚按钮**，回滚靠 `git revert + push`
-- **Public 仓库**：源代码对外公开，**绝不在仓库里放 token / secret / 任何敏感配置**
-- **CNAME 文件**：内容 `migofitai.com`，**改它 = 改域名绑定**，禁止擅自动
-- **HTTPS 自动签发**：靠 GitHub Pages 后台 "Enforce HTTPS" 开关，不需要本仓代码配合
-- **DNS 解析**：A 记录指向 GitHub Pages 的 4 个 IP（见 README）+ `www` CNAME 到 `richerlan.github.io`
+> 官网部署在**腾讯云 CVM**（和 FitCoachServer 同一台机器），**不是 GitHub Pages**。本仓 README 早期写过 GitHub Pages 方案，**已废弃**，请以下面为准。
+
+### 部署架构
+
+```
+本地 (你)               github (代码托管)              腾讯云 CVM 1.14.174.249
+─────                  ─────────────────              ──────────────────────────
+git push   ────────▶  RicherLan/fitcoach-website ──▶ /data/fitcoach/website
+                                                              │
+                                                              │ docker volume 只读挂载
+                                                              ▼
+                                                     fitcoach-nginx-prod 容器
+                                                     /usr/share/nginx/website
+                                                              │
+                                                              ▼
+                                                     http://1.14.174.249/
+                                                     (未来 → migofitai.com)
+```
+
+### 发布动作（每次都要做，**push 不会自动上线**）
+
+```bash
+# 在服务器上执行（不是本地！）
+cd /opt/fitcoach/FitCoachServer
+bash shell/deploy-website.sh         # 日常更新（git pull + nginx -s reload，零停机）
+bash shell/deploy-website.sh status  # 看部署状态 + 当前线上 commit hash
+bash shell/deploy-website.sh init    # 首次部署专用（git clone）
+```
+
+脚本源码 + 详细注释：[`FitCoachServer/shell/deploy-website.sh`](../../FitCoachServer/shell/deploy-website.sh)
+
+### 几件必须知道的事
+
+- **push 不等于上线**：必须去服务器跑 `bash shell/deploy-website.sh` 才生效（脚本里是 `git pull + nginx -s reload`）
+- **github 仅作代码托管**：私有 / public 都行，不参与"发布"
+- **回滚方式**：`git revert <bad_hash> && git push` → 在服务器再跑一次 `bash shell/deploy-website.sh`
+- **nginx 容器共用**：和 FitCoachServer 共用同一个 `fitcoach-nginx-prod` 容器；改 nginx 配置请去 `FitCoachServer/nginx/`
+- **没有 CNAME 文件**：早期 GitHub Pages 方案曾留过 `CNAME` 文件，**已删除**。当前 CVM nginx 方案下，域名绑定通过 nginx `server_name` + DNS A 记录实现，本仓不需要任何与域名相关的元文件
+- **域名当前状态**：尚未绑定 `migofitai.com`，公网通过 `http://1.14.174.249/` 访问；备案完成后通过改 nginx `server_name` + DNS A 记录指向 CVM 来绑定
+- **HTTPS**：通过 nginx 容器内的证书配置（详见 [`FitCoachServer/doc/DEPLOY.md`](../../FitCoachServer/doc/DEPLOY.md) § 5 HTTPS 证书配置）
 
 ---
 
@@ -171,7 +207,7 @@ feat: 品牌全面重塑 FitCoach → MIGO FIT
 - 出错了**承认错误**，不要狡辩 / 找借口
 - 给命令优先给「我能直接复制粘贴跑」的完整命令
 - 涉及线上文案 / 法律 / 备案 → **改前先告诉我，得到允许再动手**
-- 改完跟我同步：commit hash + 1 分钟后线上生效
+- 改完跟我同步：commit hash + 提醒去服务器跑 `bash shell/deploy-website.sh`
 
 ---
 
@@ -179,9 +215,9 @@ feat: 品牌全面重塑 FitCoach → MIGO FIT
 
 如果你（AI）发现：
 - 本地有未提交的改动 → **立刻 commit + push**（官网积压改动 = 线上和本地不一致 = 后续协作必踩坑）
-- 自己 push 上线后发现错字 / bug / 法律措辞错误 → **立刻 `git revert <hash> && git push`** 撤回，再告诉我原因
-- `CNAME` 被误改导致域名失效 → **立刻恢复 + push**，并立刻告诉我
+- 已 push 但发现错字 / bug / 法律措辞错误 → **立刻 `git revert <hash> && git push`** 撤回；如果已经在服务器跑过 `deploy-website.sh`，提醒我再跑一次部署脚本同步线上
 - 隐私政策 / 用户协议被改动 → **立刻告诉我**，不论改动多小
+- 不知道某段代码 / 文案是不是线上跑着的 → 在服务器跑 `bash shell/deploy-website.sh status` 看当前线上 commit hash 比对
 
 ---
 
