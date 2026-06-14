@@ -1,5 +1,7 @@
 # MIGO FIT Official Website
 
+> ⚠️ **新接手的 AI 请先读 [`doc/AI-PROMPT.md`](./doc/AI-PROMPT.md)**（协作铁律：改完即 commit + push、品牌 VI 跨四仓一致、法律/备案高危操作必先问等），再回头读本文了解项目本身。
+
 MIGO FIT 官方网站，部署在 GitHub Pages，绑定自定义域名 **migofitai.com**。
 
 - **运营主体**：北京跃动无限科技有限公司
